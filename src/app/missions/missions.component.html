@@ -1,0 +1,123 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Mission</h4>
+            <p class="card-category">Crée votre mission</p>
+          </div>
+          <div class="card-body">
+            <form *ngIf="Missions">
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="titre" type="text"  [(ngModel)]="Mission.titre" name="titre">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Date Mission" type="date"  [(ngModel)]="Mission.dateMission"
+                      name="dateMission">
+                  </mat-form-field>
+                </div> 
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="descriptions" type="text"  [(ngModel)]="Mission.descriptions"
+                      name="descriptions">
+                  </mat-form-field>
+                </div>
+
+              </div>
+              <div class="row" *ngIf="category">
+                <div class="col-md-6">
+                  <div *ngIf="category">
+                    <mat-form-field appearance="fill" class="select-width">
+                      <mat-label>Sous Service</mat-label>
+                      <mat-select [(ngModel)]="Mission.serviceId">
+                        <mat-option *ngFor="let soss of category" value="{{ soss.id }}">{{ soss.nom }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div *ngIf="Missions">
+                    <mat-form-field appearance="fill" class="select-width" *ngIf="clients">
+                      <mat-label>CLIENTS</mat-label>
+                      <mat-select [(ngModel)]="Missions.clientId">
+                        <mat-option *ngFor="let vle of clients" value="{{ vle.id }}">{{ vle.nom }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                </div>
+                <button mat-raised-button (click)="saveMission()" class="btn btn-danger pull-right">Crée
+                  Profile</button>
+                <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Missions Table</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive" *ngIf="Missions">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>
+                    titre
+                  </th>
+                  <th>
+                    dateMission
+                  </th>
+                  <th>
+                    descriptions
+                  </th>
+                  <th>
+                    Actions
+                  </th>
+                </thead>
+                <tbody *ngFor="let miss of Missions" >
+                  <tr>
+                    <td>
+                      {{ miss.titre }}
+                    </td>
+                    <td>
+                      {{ miss.dateMission }}
+                    </td>
+                    <td class="text-primary">
+                      {{ miss.descriptions }}
+                    </td>
+
+
+                    <td class="td-actions">
+                      <button (click)="showMission(miss)" mat-raised-button type="button" matTooltip="Edit Task"
+                        [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                        <i class="material-icons">edit</i>
+                      </button>
+                      <button (click)="deleteMission(miss.id)" mat-raised-button type="button" matTooltip="Remove"
+                        [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                        <i class="material-icons">close</i>
+                      </button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
